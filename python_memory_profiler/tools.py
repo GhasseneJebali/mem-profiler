@@ -18,7 +18,7 @@ def profile_memory_decorator(function):
         time.sleep(0.1)
         function()
         time.sleep(0.1)
-        profiler_instance.save()
+        profiler_instance.save("data")
         profiler_instance.plot("data")
 
     return wrapper

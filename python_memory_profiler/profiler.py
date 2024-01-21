@@ -1,4 +1,3 @@
-import psutil
 import sys
 import os
 import pickle
@@ -7,6 +6,8 @@ import logging
 from pathlib import Path
 from collections import defaultdict
 from threading import Thread
+
+import psutil
 
 from .plottrace import plot_metric
 
@@ -26,9 +27,13 @@ class Profiler:
         self.function_name = function_name
 
         self.max_timer = DEFAULT_PARAMETERS["max_timer"]
-        self.path = Path(os.getcwd()) / DEFAULT_PARAMETERS["path"] / str(self.function_name)
+        self.path = (
+            Path(os.getcwd()) / DEFAULT_PARAMETERS["path"] / str(self.function_name)
+        )
 
         self.frequency = DEFAULT_PARAMETERS["frequency"]
+
+        self.measurements = None
 
         self.logger = logging.getLogger()
         self.logger.setLevel(logging.INFO)
@@ -50,7 +55,9 @@ class Profiler:
             self.max_timer /= self.frequency
         step = 0
         if self.logger is not None:
-            self.logger.info(f"Profiling memory usage for function {self.function_name} (pid {self.pid})...")
+            self.logger.info(
+                f"Profiling memory usage for function {self.function_name} (pid {self.pid})..."
+            )
         while step <= self.max_timer:
             try:
                 mem_usage = process.memory_full_info()
@@ -85,7 +92,9 @@ class Profiler:
 
         for metric in monitor:
             with open(
-                self.path / f"memory_profile_{self.function_name}_{self.pid}_{metric}.dat", "wb"
+                self.path
+                / f"memory_profile_{self.function_name}_{self.pid}_{metric}.dat",
+                "wb",
             ) as current_file:
                 pickle.dump(self.measurements[metric], current_file)
 
@@ -108,5 +117,5 @@ class Profiler:
                 title=title,
                 unit="MB",
                 monitor=metric,
-                function_name= self.function_name,
+                function_name=self.function_name,
             )

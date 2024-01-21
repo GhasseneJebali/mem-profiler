@@ -19,7 +19,7 @@ with open(path.join(path.dirname(__file__), "requirements.txt")) as req:
 
 setup(
     name=NAME,
-    version="0.1",
+    version="0.2",
     author="Ghassene Jebali",
     description=DESCRIPTION,
     include_package_data=True,

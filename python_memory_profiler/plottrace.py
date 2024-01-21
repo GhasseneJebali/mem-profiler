@@ -25,7 +25,7 @@ def __process_trace_data(data, unit):
     return timestamps, values
 
 
-def plot_metric(measurements, pid, path, title, unit, monitor):
+def plot_metric(measurements, pid, path, title, unit, monitor, function_name):
     relative_timestamps, measurement_values = __process_trace_data(measurements, unit)
 
     plt.figure(figsize=(15, 7))
@@ -46,14 +46,14 @@ def plot_metric(measurements, pid, path, title, unit, monitor):
     )
     plt.title(title + " - " + date)
 
-    plt.savefig(path / f"plot_{monitor}_memory_profile_{pid}.png", dpi=300)
+    plt.savefig(path / f"memory_plot_{function_name}_{pid}_{monitor}.png", dpi=300)
 
 
-def plot_trace(pid, path="data", title="", unit="MB"):
+def plot_trace(pid, path="data", title="", unit="MB", function_name=""):
     METRICS = ["data", "rss", "swap", "uss"]
     path = Path(path)
     for monitor in METRICS:
         filename = path / f"memory_profile_{pid}_{monitor}.dat"
         with open(filename, "rb") as current_file:
             read_measurements = pickle.load(current_file)
-        plot_metric(read_measurements, pid, path, title, unit, monitor)
+        plot_metric(read_measurements, pid, path, title, unit, monitor, function_name)

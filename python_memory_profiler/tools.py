@@ -12,7 +12,7 @@ if not (psutil.LINUX or psutil.MACOS or psutil.WINDOWS):
 def profile_memory_decorator(function):
     def wrapper():
         pid = os.getpid()
-        profiler_instance = Profiler(pid)
+        profiler_instance = Profiler(pid, function.__name__)
         profiler_instance.start()
         # Give some time to the profiler to initialize
         time.sleep(0.1)

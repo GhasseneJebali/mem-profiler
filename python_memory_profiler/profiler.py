@@ -70,13 +70,20 @@ class Profiler:
                     self.logger.info(f"Process {self.pid} no longer active.")
                 break
 
-    def save(self):
+    def save(self, monitor=None):
         if self.logger is not None:
             self.logger.info(f"Saving profiling data in {self.path}")
         # dump measurements to files
         if not os.path.exists(self.path):
             os.makedirs(self.path, exist_ok=True)
-        for metric in METRICS:
+
+        if not monitor:
+            monitor = METRICS
+
+        if not isinstance(monitor, list):
+            monitor = [monitor]
+
+        for metric in monitor:
             with open(
                 self.path / f"memory_profile_{self.function_name}_{self.pid}_{metric}.dat", "wb"
             ) as current_file:

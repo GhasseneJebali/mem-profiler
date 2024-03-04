@@ -47,4 +47,4 @@ Package organisation:
 | examples
 	|---numpy_arrays_profiling.py
 	|---profiler_data
-        |--- array_handler  # Folder where the output of the example code are stored
+        	|--- array_handler  # Folder where the output of the example code are stored

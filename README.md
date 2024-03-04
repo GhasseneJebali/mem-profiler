@@ -41,9 +41,9 @@ if __name__ == '__main__':
 Package organisation:
 ```bash
 |--- python_memory_profiler
-	|--- plottrace.py
-    |--- profiler.py
-    |--- tools.py
+    	|--- plottrace.py
+	|--- profiler.py
+    	|--- tools.py
 | examples
 	|---numpy_arrays_profiling.py
 	|---profiler_data

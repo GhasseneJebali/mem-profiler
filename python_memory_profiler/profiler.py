@@ -22,7 +22,37 @@ METRICS = ["data", "rss", "swap", "uss"]
 
 
 class Profiler:
+    """
+    A class for profiling and analyzing the memory usage of a process over time.
+
+    Attributes:
+        pid (int): Process ID to monitor.
+        function_name (str): Name of the function being profiled.
+        max_timer (float): Maximum time (in seconds) to profile the process. Loaded from default parameters.
+        path (Path): Directory where profiling data and plots will be saved.
+        frequency (float): Sampling frequency (in seconds) for memory measurements. Loaded from default parameters.
+        measurements (defaultdict): Dictionary to store memory measurements for different metrics.
+        logger (logging.Logger): Logger instance for reporting profiling events.
+
+    Methods:
+        start():
+            Starts a daemon thread to profile memory usage.
+
+        save(monitor: str | None = None):
+            Saves profiling data for the specified metrics to disk.
+
+        plot(monitor: str | None = None):
+            Generates and saves time-series plots for the specified memory metrics.
+    """
+
     def __init__(self, pid: int, function_name: str):
+        """
+        Initializes the profiler with the given process ID and function name.
+
+        Args:
+            pid (int): The process ID to monitor.
+            function_name (str): The name of the function being profiled.
+        """
         self.pid = pid
         self.function_name = function_name
 
@@ -44,10 +74,22 @@ class Profiler:
         self.logger.addHandler(handler)
 
     def start(self):
+        """
+        Starts the profiling process in a daemon thread.
+
+        Notes:
+            The profiler monitors memory usage in the background and records data periodically.
+        """
         daemon = Thread(target=self._run_mem_prof, daemon=True, name="Profile")
         daemon.start()
 
     def _run_mem_prof(self):
+        """
+        Monitors memory usage of the specified process and records measurements.
+
+        Notes:
+            - Profiling continues until the process ends or the maximum timer expires.
+        """
         process = psutil.Process(self.pid)
         self.measurements = defaultdict(list)
 
@@ -77,7 +119,17 @@ class Profiler:
                     self.logger.info(f"Process {self.pid} no longer active.")
                 break
 
-    def save(self, monitor=None):
+    def save(self, monitor: str | None = None):
+        """
+        Saves profiling data to disk.
+
+        Args:
+            monitor (str | None): Specific metrics to save. If None, saves all metrics.
+
+        Notes:
+            - Files are saved in the `path` directory.
+            - Filenames follow the format: `memory_profile_<function_name>_<pid>_<metric>.dat`.
+        """
         if self.logger is not None:
             self.logger.info(f"Saving profiling data in {self.path}")
         # dump measurements to files
@@ -98,7 +150,17 @@ class Profiler:
             ) as current_file:
                 pickle.dump(self.measurements[metric], current_file)
 
-    def plot(self, monitor=None):
+    def plot(self, monitor: str | None = None):
+        """
+        Generates and saves memory usage plots for the specified metrics.
+
+        Args:
+            monitor (str | None): Specific metrics to plot. If None, plots all metrics.
+
+        Notes:
+            - Plots are saved in the `path` directory.
+            - Filenames follow the format: `memory_plot_<function_name>_<pid>_<metric>.png`.
+        """
         if not monitor:
             monitor = METRICS
 

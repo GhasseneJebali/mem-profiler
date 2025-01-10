@@ -13,8 +13,8 @@ def profile_memory_decorator(function):
     """
     A decorator to profile memory usage of a function.
 
-    This decorator uses the `Profiler` class to monitor memory usage during the 
-    execution of the decorated function, saves the profiling data, and generates 
+    This decorator uses the `Profiler` class to monitor memory usage during the
+    execution of the decorated function, saves the profiling data, and generates
     corresponding plots.
 
     Args:
@@ -24,11 +24,12 @@ def profile_memory_decorator(function):
         callable: A wrapped function that profiles memory usage during execution.
 
     Notes:
-        - The memory profiling process begins before the function execution and 
+        - The memory profiling process begins before the function execution and
           continues until shortly after it completes.
         - Memory data is saved for the "data" metric only.
         - A plot of memory usage over time is generated and saved in the specified directory.
     """
+
     def wrapper():
         pid = os.getpid()
         profiler_instance = Profiler(pid, function.__name__)

@@ -12,10 +12,10 @@ def _convert_unit(value: np.ndarray, unit: str, initial_unit: str = "B"):
     Converts a numerical value between units.
 
     Args:
-        value (np.ndarray): Numerical values to be converted. 
-        unit (str): Target unit for the conversion. 
+        value (np.ndarray): Numerical values to be converted.
+        unit (str): Target unit for the conversion.
             Must be one of ["B", "kB", "MB", "GB", "TB"].
-        initial_unit (str, optional): Initial unit of the values. 
+        initial_unit (str, optional): Initial unit of the values.
             Defaults to "B". Must also be one of ["B", "kB", "MB", "GB", "TB"].
 
     Returns:
@@ -43,7 +43,7 @@ def __process_trace_data(data: list[tuple], unit: str):
         data (list[tuple]): A list of tuples where each tuple contains:
             - A timestamp (float or int).
             - A value (float or int) corresponding to the timestamp.
-        unit (str): The target unit for the value conversion. 
+        unit (str): The target unit for the value conversion.
             Must be one of ["B", "kB", "MB", "GB", "TB"].
 
     Returns:
@@ -69,7 +69,15 @@ def __process_trace_data(data: list[tuple], unit: str):
     return timestamps, values
 
 
-def plot_metric(measurements: list[tuple], pid: int, path: PosixPath, title: str, unit: str, monitor: str, function_name: str):
+def plot_metric(
+    measurements: list[tuple],
+    pid: int,
+    path: PosixPath,
+    title: str,
+    unit: str,
+    monitor: str,
+    function_name: str,
+):
     """
     Plots a time-series metric and saves the plot as an image.
 
@@ -113,7 +121,9 @@ def plot_metric(measurements: list[tuple], pid: int, path: PosixPath, title: str
     plt.savefig(path / f"memory_plot_{function_name}_{pid}_{monitor}.png", dpi=300)
 
 
-def plot_trace(pid, path: str = "data", title: str = "", unit: str = "MB", function_name: str = ""):
+def plot_trace(
+    pid, path: str = "data", title: str = "", unit: str = "MB", function_name: str = ""
+):
     """
     Generates and saves time-series plots for various memory-related metrics of a process.
 
@@ -122,7 +132,7 @@ def plot_trace(pid, path: str = "data", title: str = "", unit: str = "MB", funct
         path (str): Directory where the memory profile files are stored. Defaults to "data".
         title (str): The title of the plots. Defaults to an empty string.
         unit (str): The unit of measurement for the metrics (e.g., "MB", "kB"). Defaults to "MB".
-        function_name (str): The name of the function generating the metrics. 
+        function_name (str): The name of the function generating the metrics.
             Used in plot filenames. Defaults to an empty string.
 
     Returns:

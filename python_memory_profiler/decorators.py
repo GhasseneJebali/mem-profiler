@@ -9,7 +9,7 @@ if not (psutil.LINUX or psutil.MACOS or psutil.WINDOWS):
     sys.exit("platform not supported")
 
 
-def profile_memory_decorator(function):
+def memory_profiler_decorator(function):
     """
     A decorator to profile memory usage of a function.
 

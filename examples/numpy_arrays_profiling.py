@@ -1,10 +1,10 @@
 import time
 import numpy as np
 import tqdm
-from python_memory_profiler.profiler_decorator import profile_memory_decorator
+from python_memory_profiler.decorators import memory_profiler_decorator
 
 
-@profile_memory_decorator
+@memory_profiler_decorator
 def array_handler():
     """Runs a loop to create an array and keep it in memory for 1 second and then delete it"""
     for __ in tqdm.tqdm(range(5)):

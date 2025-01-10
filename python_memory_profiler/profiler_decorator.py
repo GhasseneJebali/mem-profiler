@@ -3,7 +3,7 @@ import sys
 import os
 import time
 
-from .profiler import Profiler
+from .src.profiler import Profiler
 
 if not (psutil.LINUX or psutil.MACOS or psutil.WINDOWS):
     sys.exit("platform not supported")

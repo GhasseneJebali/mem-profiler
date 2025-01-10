@@ -1,7 +1,7 @@
 import pickle
 from pathlib import Path, PosixPath
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -105,7 +105,7 @@ def plot_metric(measurements: list[tuple], pid: int, path: PosixPath, title: str
     min_lim = -100
     plt.ylim(min_lim, max_lim)
 
-    date = datetime.fromtimestamp(int(measurements[0][0]), datetime.timezone.utc).strftime(
+    date = datetime.fromtimestamp(int(measurements[0][0]), timezone.utc).strftime(
         "%Y-%m-%d %H:%M:%S"
     )
     plt.title(title + " - " + date)

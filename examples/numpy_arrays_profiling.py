@@ -1,7 +1,7 @@
 import time
 import numpy as np
 import tqdm
-from python_memory_profiler.decorators import memory_profiler_decorator
+from memory_profiler.decorators import memory_profiler_decorator
 
 
 @memory_profiler_decorator

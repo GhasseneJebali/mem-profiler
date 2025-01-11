@@ -15,7 +15,7 @@ from .plottrace import plot_metric
 DEFAULT_PARAMETERS = {
     "max_timer": 0,
     "path": "profiler_data",
-    "frequency": 0.1,
+    "frequency": 0.1,  # in seconds
 }
 
 METRICS = ["data", "rss", "swap", "uss"]
@@ -124,7 +124,7 @@ class Profiler:
         Saves profiling data to disk.
 
         Args:
-            monitor (str | None): Specific metrics to save. If None, saves all metrics.
+            monitor (str | None): Specific metrics to save. If None, saves all metrics ["data", "rss", "swap", "uss"].
 
         Notes:
             - Files are saved in the `path` directory.

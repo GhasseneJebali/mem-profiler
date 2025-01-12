@@ -70,14 +70,14 @@ if __name__ == "__main__":
 
 ### Configuration
 
-You can adjust default profiling parameters such as sampling frequency and output path by modifying the `DEFAULT_PARAMETERS` dictionary in the `profiler.py` file:
+You can adjust default profiling parameters such as sampling frequency and output path by modifying the `src/configs/config.yaml` configuration file:
 
-```python
-DEFAULT_PARAMETERS = {
-    "max_timer": 0,  # Maximum time (in seconds) to profile the process
-    "path": "profiler_data",  # Directory where profiling data and plots will be saved
-    "frequency": 0.1,  # Sampling frequency (in seconds)
-}
+```yaml
+max_timer: 0  # Maximum time (in seconds) to profile the process
+path: profiler_data  # Directory where profiling data and plots will be saved
+frequency: 0.1   # Sampling frequency (in seconds)
+
+metrics: ["data", "rss", "swap", "uss"]
 ```
 
 For more information, check `Profiler` class documentation.

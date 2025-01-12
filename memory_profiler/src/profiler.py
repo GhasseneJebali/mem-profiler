@@ -20,10 +20,12 @@ class Profiler:
     Attributes:
         pid (int): Process ID to monitor.
         function_name (str): Name of the function being profiled.
-        max_timer (float): Maximum time (in seconds) to profile the process. Loaded from default parameters.
+        max_timer (float): Maximum time (in seconds) to profile the process.
+            Loaded from default parameters.
         path (Path): Directory where profiling data and plots will be saved.
-        frequency (float): Sampling frequency (in seconds) for memory measurements. Loaded from default parameters.
-        measurements (defaultdict): Dictionary to store memory measurements for different metrics.
+        frequency (float): Sampling frequency (in seconds) for memory measurements.
+             Loaded from default parameters.
+        measurements (defaultdict): Dictionary to store memory measurements.
         logger (logging.Logger): Logger instance for reporting profiling events.
 
     Methods:
@@ -49,13 +51,11 @@ class Profiler:
         self.function_name = function_name
 
         config = OmegaConf.load(
-            os.path.join(os.path.dirname(__file__), 'configs/config.yaml')
+            os.path.join(os.path.dirname(__file__), "configs/config.yaml")
         )
         self.metrics = config["metrics"]
         self.max_timer = config["max_timer"]
-        self.path = (
-            Path(os.getcwd()) / config["path"] / str(self.function_name)
-        )
+        self.path = Path(os.getcwd()) / config["path"] / str(self.function_name)
         self.frequency = config["frequency"]
 
         self.measurements = None
@@ -73,7 +73,8 @@ class Profiler:
         Starts the profiling process in a daemon thread.
 
         Notes:
-            The profiler monitors memory usage in the background and records data periodically.
+            The profiler monitors memory usage in the background and records
+            data periodically.
         """
         daemon = Thread(target=self._run_mem_prof, daemon=True, name="Profile")
         daemon.start()
@@ -93,7 +94,8 @@ class Profiler:
         step = 0
         if self.logger is not None:
             self.logger.info(
-                f"Profiling memory usage for function {self.function_name} (pid {self.pid})..."
+                f"Profiling memory usage for function {self.function_name} \
+                (pid {self.pid})..."
             )
         while step <= self.max_timer:
             try:
@@ -119,11 +121,13 @@ class Profiler:
         Saves profiling data to disk.
 
         Args:
-            monitor (str | None): Specific metrics to save. If None, saves all metrics ["data", "rss", "swap", "uss"].
+            monitor (str | None): Specific metrics to save.
+                If None, saves all metrics ["data", "rss", "swap", "uss"].
 
         Notes:
             - Files are saved in the `path` directory.
-            - Filenames follow the format: `memory_profile_<function_name>_<pid>_<metric>.dat`.
+            - Filenames follow the format:
+                `memory_profile_<function_name>_<pid>_<metric>.dat`.
         """
         if self.logger is not None:
             self.logger.info(f"Saving profiling data in {self.path}")

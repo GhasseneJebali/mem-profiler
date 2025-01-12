@@ -12,7 +12,9 @@ def test_profiler_initialization():
     profiler = Profiler(pid, function_name)
 
     assert profiler.pid == pid, "Profiler PID should match the current process ID."
-    assert profiler.function_name == function_name, "Profiler function name should match the input."
+    assert (
+        profiler.function_name == function_name
+    ), "Profiler function name should match the input."
     assert profiler.max_timer is not None, "Profiler should initialize max_timer."
     assert profiler.frequency > 0, "Profiler frequency should be greater than 0."
     assert profiler.measurements is None, "Measurements should initially be None."
@@ -35,7 +37,9 @@ def test_profiler_save(tmp_path):
     # Verify file content
     with open(expected_file, "rb") as file:
         saved_data = pickle.load(file)
-    assert saved_data == profiler.measurements["data"], "Saved data should match the profiler measurements."
+    assert (
+        saved_data == profiler.measurements["data"]
+    ), "Saved data should match the profiler measurements."
 
 
 def test_profiler_run_mem_prof():

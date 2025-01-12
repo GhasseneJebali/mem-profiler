@@ -27,7 +27,8 @@ def memory_profiler_decorator(function):
         - The memory profiling process begins before the function execution and
           continues until shortly after it completes.
         - Memory data is saved for the "data" metric only.
-        - A plot of memory usage over time is generated and saved in the specified directory.
+        - A plot of memory usage over time is generated and saved
+        in the specified directory.
     """
 
     def wrapper():

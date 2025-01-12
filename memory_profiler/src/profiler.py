@@ -116,7 +116,7 @@ class Profiler:
                     self.logger.info(f"Process {self.pid} no longer active.")
                 break
 
-    def save(self, monitor:None):
+    def save(self, monitor=None):
         """
         Saves profiling data to disk.
 
@@ -149,7 +149,7 @@ class Profiler:
             ) as current_file:
                 pickle.dump(self.measurements[metric], current_file)
 
-    def plot(self, monitor= None):
+    def plot(self, monitor=None):
         """
         Generates and saves memory usage plots for the specified metrics.
 
@@ -158,7 +158,8 @@ class Profiler:
 
         Notes:
             - Plots are saved in the `path` directory.
-            - Filenames follow the format: `memory_plot_<function_name>_<pid>_<metric>.png`.
+            - Filenames follow the format:
+                `memory_plot_<function_name>_<pid>_<metric>.png`.
         """
         if not monitor:
             monitor = self.metrics

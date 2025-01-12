@@ -1,0 +1,5 @@
+max_timer: 0  # Maximum time (in seconds) to profile the process
+path: profiler_data  # Directory where profiling data and plots will be saved
+frequency: 0.1   # Sampling frequency (in seconds)
+
+metrics: ["data", "rss", "swap", "uss"]

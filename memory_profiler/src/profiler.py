@@ -3,6 +3,7 @@ import os
 import pickle
 import time
 import logging
+from omegaconf import OmegaConf
 from pathlib import Path
 from collections import defaultdict
 from threading import Thread
@@ -10,15 +11,6 @@ from threading import Thread
 import psutil
 
 from .plottrace import plot_metric
-
-
-DEFAULT_PARAMETERS = {
-    "max_timer": 0,
-    "path": "profiler_data",
-    "frequency": 0.1,  # in seconds
-}
-
-METRICS = ["data", "rss", "swap", "uss"]
 
 
 class Profiler:
@@ -56,12 +48,15 @@ class Profiler:
         self.pid = pid
         self.function_name = function_name
 
-        self.max_timer = DEFAULT_PARAMETERS["max_timer"]
-        self.path = (
-            Path(os.getcwd()) / DEFAULT_PARAMETERS["path"] / str(self.function_name)
+        config = OmegaConf.load(
+            os.path.join(os.path.dirname(__file__), 'configs/config.yaml')
         )
-
-        self.frequency = DEFAULT_PARAMETERS["frequency"]
+        self.metrics = config["metrics"]
+        self.max_timer = config["max_timer"]
+        self.path = (
+            Path(os.getcwd()) / config["path"] / str(self.function_name)
+        )
+        self.frequency = config["frequency"]
 
         self.measurements = None
 
@@ -103,7 +98,7 @@ class Profiler:
         while step <= self.max_timer:
             try:
                 mem_usage = process.memory_full_info()
-                for metric in METRICS:
+                for metric in self.metrics:
                     self.measurements[metric].append(
                         (time.time(), getattr(mem_usage, metric))
                     )
@@ -137,7 +132,7 @@ class Profiler:
             os.makedirs(self.path, exist_ok=True)
 
         if not monitor:
-            monitor = METRICS
+            monitor = self.metrics
 
         if not isinstance(monitor, list):
             monitor = [monitor]
@@ -162,7 +157,7 @@ class Profiler:
             - Filenames follow the format: `memory_plot_<function_name>_<pid>_<metric>.png`.
         """
         if not monitor:
-            monitor = METRICS
+            monitor = self.metrics
 
         if not isinstance(monitor, list):
             monitor = [monitor]

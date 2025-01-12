@@ -32,10 +32,10 @@ class Profiler:
         start():
             Starts a daemon thread to profile memory usage.
 
-        save(monitor: str | None = None):
+        save(monitor:None):
             Saves profiling data for the specified metrics to disk.
 
-        plot(monitor: str | None = None):
+        plot(monitor:None):
             Generates and saves time-series plots for the specified memory metrics.
     """
 
@@ -116,7 +116,7 @@ class Profiler:
                     self.logger.info(f"Process {self.pid} no longer active.")
                 break
 
-    def save(self, monitor: str | None = None):
+    def save(self, monitor:None):
         """
         Saves profiling data to disk.
 
@@ -149,7 +149,7 @@ class Profiler:
             ) as current_file:
                 pickle.dump(self.measurements[metric], current_file)
 
-    def plot(self, monitor: str | None = None):
+    def plot(self, monitor= None):
         """
         Generates and saves memory usage plots for the specified metrics.
 

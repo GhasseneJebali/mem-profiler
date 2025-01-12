@@ -125,13 +125,16 @@ def plot_trace(
     pid, path: str = "data", title: str = "", unit: str = "MB", function_name: str = ""
 ):
     """
-    Generates and saves time-series plots for various memory-related metrics of a process.
+    Generates and saves time-series plots for various memory-related
+    metrics of a process.
 
     Args:
         pid (int): The process ID for which the memory metrics are plotted.
-        path (str): Directory where the memory profile files are stored. Defaults to "data".
+        path (str): Directory where the memory profile files are stored.
+            Defaults to "data".
         title (str): The title of the plots. Defaults to an empty string.
-        unit (str): The unit of measurement for the metrics (e.g., "MB", "kB"). Defaults to "MB".
+        unit (str): The unit of measurement for the metrics (e.g., "MB", "kB").
+            Defaults to "MB".
         function_name (str): The name of the function generating the metrics.
             Used in plot filenames. Defaults to an empty string.
 
@@ -145,7 +148,8 @@ def plot_trace(
     Details:
         - The function processes four memory metrics: "data", "rss", "swap", and "uss".
         - For each metric:
-          1. Reads its corresponding `.dat` file containing measurement data as a pickled object.
+          1. Reads its corresponding `.dat` file containing measurement data as
+          a pickled object.
           2. Calls `plot_metric` to process the data and generate a plot.
           3. Saves the plot in the specified directory, with a filename format:
              `memory_plot_<function_name>_<pid>_<monitor>.png`.

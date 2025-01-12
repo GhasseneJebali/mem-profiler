@@ -1,0 +1,33 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-memory-profiler"
+version = "0.3.1"
+description = "A Python library for memory usage profiling and visualization."
+readme = "README.md"
+authors = [{ name = "Ghassene Jebali", email = "ghassene.jebali@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: System :: Monitoring",
+]
+keywords = ["memory", "profiling", "monitoring", "performance", "python"]
+requires-python = ">=3.6"
+
+[project.urls]
+Homepage = "https://github.com/GhasseneJebali/python-memory-profiler"
+Repository = "https://github.com/GhasseneJebali/python-memory-profiler"
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}

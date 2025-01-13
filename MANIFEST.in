@@ -1,1 +1,3 @@
 include examples/profiler_data/array_handler/memory_plot_array_handler_450155_data.png
+
+include memory_profiler/src/configs/*.yaml

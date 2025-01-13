@@ -50,9 +50,9 @@ class Profiler:
         self.pid = pid
         self.function_name = function_name
 
-        config = OmegaConf.load(
-            os.path.join(os.path.dirname(__file__), "configs/config.yaml")
-        )
+        path = os.path.realpath(__file__)
+        dir = os.path.dirname(path)
+        config = OmegaConf.load(os.path.join(dir, "configs/config.yaml"))
         self.metrics = config["metrics"]
         self.max_timer = config["max_timer"]
         self.path = Path(os.getcwd()) / config["path"] / str(self.function_name)

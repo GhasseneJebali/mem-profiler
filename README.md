@@ -88,7 +88,7 @@ The profiling results are saved as `.dat` files in the specified output director
 
 ### Example Plot
 
-![Memory Usage Example](examples/profiler_data/array_handler/memory_plot_array_handler_450155_data.png)
+![Memory Usage Example](https://github.com/GhasseneJebali/python-memory-profiler/blob/main/examples/profiler_data/array_handler/memory_plot_array_handler_450155_data.png?raw=true)
 
 ## Contributing
 

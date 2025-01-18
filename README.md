@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
 ### Configuration
 
-You can adjust default profiling parameters such as sampling frequency and output path by modifying the `src/configs/config.yaml` configuration file:
+If you installed the package from source, you can adjust default profiling parameters such as sampling frequency and output path by modifying the `src/configs/config.yaml` configuration file:
 
 ```yaml
 max_timer: 0  # Maximum time (in seconds) to profile the process

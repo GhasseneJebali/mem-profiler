@@ -11,8 +11,12 @@ Python Memory Profiler is a Python package designed for efficient and customizab
 
 ## Installation
 
+```bash
+pip install python-memory-profiler
+```
+
 ### From source
-Clone the repository and install the dependencies:
+If you want to install the dev version, clone the repository and install the dependencies:
 
 ```bash
 $ git clone https://github.com/GhasseneJebali/python-memory-profiler.git
